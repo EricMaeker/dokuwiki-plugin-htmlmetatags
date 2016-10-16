@@ -65,7 +65,7 @@ class syntax_plugin_htmlmetatags_syntax extends DokuWiki_Syntax_Plugin {
         // remove the plugin-activator string
         $match = str_replace("{{htmlmetatags>","",$match);
         $match = str_replace("}}","",$match);
-        
+
         // Explode match into attributes array using 'metatag-' as mask
         return explode("metatag-", $match);
     }
@@ -110,6 +110,9 @@ class syntax_plugin_htmlmetatags_syntax extends DokuWiki_Syntax_Plugin {
                           $renderer->meta["htmlmetatags"][$name] .= ', '.$content;
                         else
                           $renderer->meta["htmlmetatags"][$name] .= $content;
+                      } else if ($name == "description") {
+                          $renderer->meta["htmlmetatags"]["description"] = $content;
+                          $renderer->meta["htmlmetatags"]["og:description"] = $content;
                       }
                       else
                         $renderer->meta["htmlmetatags"][$name] .= $content;
