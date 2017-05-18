@@ -58,14 +58,14 @@ class syntax_plugin_htmlmetatags_syntax extends DokuWiki_Syntax_Plugin {
      * @param Doku_Handler    $handler The handler
      * @return array Data for the renderer
      */
-    public function handle($match, $state, $pos, Doku_Handler &$handler){
+    public function handle($match, $state, $pos, Doku_Handler $handler){
         // Remove all linefeeds before parsing attributes
         $match = str_replace(PHP_EOL,"",$match);
         
         // remove the plugin-activator string
         $match = str_replace("{{htmlmetatags>","",$match);
         $match = str_replace("}}","",$match);
-
+        
         // Explode match into attributes array using 'metatag-' as mask
         return explode("metatag-", $match);
     }
@@ -79,7 +79,7 @@ class syntax_plugin_htmlmetatags_syntax extends DokuWiki_Syntax_Plugin {
      * @param array          $data      The data from the handler() function
      * @return bool If rendering was successful.
      */
-    public function render($mode, Doku_Renderer &$renderer, $data) {
+    public function render($mode, Doku_Renderer $renderer, $data) {
  
     	global $ID;
  
