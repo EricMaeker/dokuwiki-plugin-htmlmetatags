@@ -129,9 +129,10 @@ class syntax_plugin_htmlmetatags_syntax extends DokuWiki_Syntax_Plugin {
                           // Replace previous content
                           $renderer->meta["htmlmetatags"]["description"] = $content;
                           $renderer->meta["htmlmetatags"]["og:description"] = $content;
-                      } else if ($name == "og:image") {
-                          // Replace previous content
-                          $renderer->meta["htmlmetatags"]["og:image"] = $content;
+#                      } else if ($name == "og:image") {
+                      } else if (preg_match("/^og:image/", $name) === 1) {
+                          // For all image open graph data, override previous content
+                          $renderer->meta["htmlmetatags"][$name] = $content;
                       }
                       else
                         $renderer->meta["htmlmetatags"][$name] .= $content;
