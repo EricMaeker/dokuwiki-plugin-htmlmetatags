@@ -22,27 +22,13 @@ class action_plugin_htmlmetatags extends DokuWiki_Action_Plugin {
      * @return void
      */
     public function register(Doku_Event_Handler $controller) {
-
-       // $controller->register_hook('htmlmetatags', 'FIXME', $this, 'handle_htmlmetatags');
-       $controller->register_hook('TPL_METAHEADER_OUTPUT','BEFORE',$this,'handle_htmlmetatags',array());
-   
+       $controller->register_hook('TPL_METAHEADER_OUTPUT','BEFORE',$this,'handle_htmlmetatags',array());   
     }
-/*
-    public function searchname($namematch, $meta){
-    	for ($i=0;$i<sizeof($meta);$i++) {
-    		$a = $meta[$i];
-    		if($namematch == $a['name']){
-    			return $a;
-    		}
-    	}
-    	 
-    	return null;
-    }
-  */
-  
+    
     function replaceMeta(&$pageArray, $name, $value) {
-    // Override dokuwiki default meta tags
+      // Override dokuwiki default meta tags (name and property)
       $found = False;
+
       foreach($pageArray['meta'] as $k => $v) {
         if ($v["name"] == $name) {
           $v["content"] = $value;
@@ -50,6 +36,7 @@ class action_plugin_htmlmetatags extends DokuWiki_Action_Plugin {
           $found = True;
         }
       }
+
       // If meta not set, add it as name or property
       if (!$found) {
         if (strpos($name, ':') !== false)
@@ -65,12 +52,11 @@ class action_plugin_htmlmetatags extends DokuWiki_Action_Plugin {
      * Prints keywords to the meta header
      *
      * @param Doku_Event $event  event object by reference
-     * @param mixed      $param  [the parameters passed as fifth argument to register_hook() when this
-     *                           handler was registered]
+     * @param mixed      $param  [the parameters passed as fifth argument to 
+     *                           register_hook() when this handler was registered]
      * @return void
      */
     public function handle_htmlmetatags(Doku_Event &$event, $param) {
-    
       global $ID;
       global $conf;
       if (empty($event->data) || empty($event->data['meta'])) return; // nothing to do for us
@@ -84,7 +70,6 @@ class action_plugin_htmlmetatags extends DokuWiki_Action_Plugin {
         $this->replaceMeta($event->data, $cur_key, $a[$cur_key]);
       }
     }
-    
 }
 
 // vim:ts=4:sw=4:et:

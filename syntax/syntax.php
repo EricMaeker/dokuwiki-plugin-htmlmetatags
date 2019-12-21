@@ -98,13 +98,15 @@ class syntax_plugin_htmlmetatags_syntax extends DokuWiki_Syntax_Plugin {
                  if (sizeof($mt) == 2) {
                  	  $name = trim($mt[0]);
                  	  $content = trim(preg_replace("/\((.*?)\)\s*$/","\\1",$mt[1]));
-                 	  // Test if attribute name is a media files and get media file absolute URL
+                 	  // Test if attribute name is a media files 
+                 	  // and get media file absolute URL
                  	  if (substr($name, 0, 6) === 'media-') {
                  	      $name = substr($name, 6);
                  	      // Split url using '?'
                  	      $pos = strpos($content, '?');
                  	      if ($pos > 0) { 
-                          // Remove "&nolink" from url as we always return a direct link
+                          // Remove "&nolink" from url 
+                          // as we always return a direct link
                           //$content = str_replace('&nolink', '', $content);
                           //$content = str_replace('nolink', '', $content);
                	          $split = explode("?", $content);
@@ -129,13 +131,12 @@ class syntax_plugin_htmlmetatags_syntax extends DokuWiki_Syntax_Plugin {
                           // Replace previous content
                           $renderer->meta["htmlmetatags"]["description"] = $content;
                           $renderer->meta["htmlmetatags"]["og:description"] = $content;
-#                      } else if ($name == "og:image") {
                       } else if (preg_match("/^og:image/", $name) === 1) {
                           // For all image open graph data, override previous content
                           $renderer->meta["htmlmetatags"][$name] = $content;
                       }
                       else
-                        $renderer->meta["htmlmetatags"][$name] .= $content;
+                        $renderer->meta["htmlmetatags"][$name] = $content;
                     }
                  }
               }
