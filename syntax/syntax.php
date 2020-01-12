@@ -127,10 +127,15 @@ class syntax_plugin_htmlmetatags_syntax extends DokuWiki_Syntax_Plugin {
                         else
                           $renderer->meta["htmlmetatags"][$name] .= $content;
                       } else if ($name == "description") {
-                          // Define description and og:description
+                          // Define description and og:description twitter:description
                           // Replace previous content
                           $renderer->meta["htmlmetatags"]["description"] = $content;
                           $renderer->meta["htmlmetatags"]["og:description"] = $content;
+                          $renderer->meta["htmlmetatags"]["twitter:description"] = $content;
+                      } else if ($name == "title") {
+                          // Add twitter:title
+                          $renderer->meta["htmlmetatags"]["title"] = $content;
+                          $renderer->meta["htmlmetatags"]["twitter:title"] = $content;
                       } else if (preg_match("/^og:image/", $name) === 1) {
                           // For all image open graph data, override previous content
                           $renderer->meta["htmlmetatags"][$name] = $content;

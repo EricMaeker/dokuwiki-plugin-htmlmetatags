@@ -39,10 +39,22 @@ class action_plugin_htmlmetatags extends DokuWiki_Action_Plugin {
 
       // If meta not set, add it as name or property
       if (!$found) {
-        if (strpos($name, ':') !== false)
-          $pageArray['meta'][] = array("property" => $name, "content" => $value);
-        else
+        $metaType = "name";
+        // Manage og: twitter: (property or name in meta)
+        if (strpos($name, ':') !== false) {
+          $propType = explode(":", $name);
+		  switch ($propType[0]) {
+			  case "og":
+				$metaType = "property";
+				break;
+			  case "twitter":
+				$metaType = "name";
+				break;
+		  }
+          $pageArray['meta'][] = array($metaType => $name, "content" => $value);
+        } else {
           $pageArray['meta'][] = array("name" => $name, "content" => $value);
+        }
       }
     }
 
