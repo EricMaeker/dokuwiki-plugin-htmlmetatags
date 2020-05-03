@@ -85,6 +85,23 @@ class syntax_plugin_htmlmetatags_syntax extends DokuWiki_Syntax_Plugin {
  
         switch ($mode) {
           case 'metadata' :
+              // Add server vars
+              /**
+              $renderer->meta["htmlmetatags"]["svr:SCRIPT_NAME"] = $_SERVER['SCRIPT_NAME'];
+              $renderer->meta["htmlmetatags"]["svr:PHP_SELF"] = $_SERVER['PHP_SELF'];
+              $renderer->meta["htmlmetatags"]["svr:DOCUMENT_ROOT"] = $_SERVER['DOCUMENT_ROOT'];
+              $renderer->meta["htmlmetatags"]["svr:SCRIPT_FILENAME"] = $_SERVER['SCRIPT_FILENAME'];
+              $renderer->meta["htmlmetatags"]["svr:HTTP_HOST"] = $_SERVER['HTTP_HOST'];
+              $renderer->meta["htmlmetatags"]["svr:SERVER_NAME"] = $_SERVER['SERVER_NAME'];
+              $renderer->meta["htmlmetatags"]["svr:HTTPS"] = $_SERVER['HTTPS'];
+              $renderer->meta["htmlmetatags"]["svr:IS_SSL"] = is_ssl()?"true":"false";
+              $renderer->meta["htmlmetatags"]["svr:HTTP_REFERER"] = $_SERVER['HTTP_REFERER'];
+              
+              $renderer->meta["htmlmetatags"]["Doku:DOKU_REL"] = DOKU_REL;
+              $renderer->meta["htmlmetatags"]["Doku:DOKU_URL"] = DOKU_URL;
+              $renderer->meta["htmlmetatags"]["Doku:DOKU_BASE"] = DOKU_BASE;
+             */
+
               /* 
                * e.g.
                * data[0]="keywords=(apfel, bananne, birne) "
